@@ -1,0 +1,47 @@
+---
+import { Icon } from "astro-icon/components";
+const currentYear = new Date().getFullYear();
+---
+
+<footer
+  class="bg-slate-950 border-t border-white/5 py-12 text-center relative overflow-hidden reveal-item opacity-0 translate-y-8 transition-all duration-700"
+>
+  <div
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"
+  >
+  </div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6">
+    <h2 class="text-3xl font-bold text-white mb-6">¿Listo para colaborar?</h2>
+    <p class="text-slate-400 mb-8 max-w-lg mx-auto">
+      Abierto a nuevas oportunidades en desarrollo Full Stack.
+    </p>
+
+    <a
+      href="mailto:miguel.emezero@gmail.com"
+      class="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-semibold transition-all shadow-lg hover:shadow-blue-500/25 hover:-translate-y-1 mb-12"
+    >
+      <Icon name="mdi:email-send" class="w-5 h-5" />
+      Contáctame
+    </a>
+
+    <div class="flex justify-center gap-8 mb-8">
+      <a
+        href="https://linkedin.com/in/bymiguelmartinez"
+        class="text-slate-400 hover:text-white transition-colors transform hover:scale-110"
+      >
+        <Icon name="mdi:linkedin" class="w-7 h-7" />
+      </a>
+      <a
+        href="https://github.com/miguel0exe"
+        class="text-slate-400 hover:text-white transition-colors transform hover:scale-110"
+      >
+        <Icon name="mdi:github" class="w-7 h-7" />
+      </a>
+    </div>
+
+    <p class="text-slate-600 text-sm">
+      © {currentYear} Miguel Ángel Martínez.
+    </p>
+  </div>
+</footer>

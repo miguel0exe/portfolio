@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://tudominio.com/" />
+		<meta property="og:title" content="Miguel Ángel - Ingeniero Full Stack" />
+		<meta
+			property="og:description"
+			content="Desarrollador Java & React. Especialista en arquitecturas robustas y experiencias web modernas."
+		/>
+		<meta property="og:image" content="/og-image.png" />
+
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta
+			property="twitter:title"
+			content="Miguel Ángel - Ingeniero Full Stack"
+		/>
+		<meta
+			property="twitter:description"
+			content="Desarrollador Java & React. Especialista en arquitecturas robustas y experiencias web modernas."
+		/>
+		<meta property="twitter:image" content="/og-image.png" />
+		<title>Mi portafolio</title>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	@import "tailwindcss";
+	html {
+		scroll-behavior: smooth; /* <--- La magia ocurre aquí */
+		font-family: system-ui, sans-serif;
+		background: #020617; /* Slate 950 para que coincida con el tema */
+	}
+
+	/* Opcional: Personalizar la barra de scroll para que combine */
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+	::-webkit-scrollbar-track {
+		background: #0f172a;
+	}
+	::-webkit-scrollbar-thumb {
+		background: #334155;
+		border-radius: 5px;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #475569;
+	}
+</style>

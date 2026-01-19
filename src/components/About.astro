@@ -1,0 +1,222 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<section
+  id="sobre-mi"
+  class="py-20 bg-slate-950 text-white relative overflow-hidden"
+>
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <h2
+      class="text-3xl md:text-4xl font-bold mb-12 flex items-center gap-3 reveal-item opacity-0 translate-y-8 transition-all duration-700"
+    >
+      <span class="text-blue-500">#</span> Sobre Mí
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div
+        class="spotlight-card md:col-span-2 p-8 rounded-2xl border border-white/[0.05] bg-white/[0.02] backdrop-blur-xl group relative overflow-hidden shadow-xl shadow-black/50 reveal-item opacity-0 translate-y-8 transition-all duration-700 delay-100"
+      >
+        <div
+          class="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
+          style="background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(59, 130, 246, 0.1), transparent 40%);"
+        >
+        </div>
+
+        <div class="relative z-20">
+          <div class="flex items-start gap-4 mb-4">
+            <div
+              class="p-3 bg-blue-500/20 rounded-lg text-blue-400 border border-blue-500/20"
+            >
+              <Icon name="mdi:account-circle" class="w-8 h-8" />
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold text-white">Más allá del código</h3>
+              <p class="text-slate-500 text-sm">Ingeniero & Creativo</p>
+            </div>
+          </div>
+          <p class="text-slate-300 leading-relaxed mb-4">
+            Con más de <span class="text-blue-400 font-semibold"
+              >3 años de experiencia</span
+            >, diseño soluciones que combinan la robustez de la ingeniería de
+            software clásica con la agilidad moderna.
+          </p>
+          <p class="text-slate-300 leading-relaxed">
+            Me especializo en cerrar la brecha entre el <strong
+              >Backend (Java/Spring)</strong
+            > y el <strong>Frontend (React/Next.js)</strong>.
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="spotlight-card md:col-span-1 p-8 rounded-2xl border border-white/[0.05] bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-xl group relative overflow-hidden shadow-xl shadow-black/50 flex flex-col justify-between reveal-item opacity-0 translate-y-8 transition-all duration-700 delay-200"
+      >
+        <div
+          class="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
+          style="background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(168, 85, 247, 0.15), transparent 40%);"
+        >
+        </div>
+
+        <div class="relative z-20">
+          <div class="flex justify-between items-start mb-4">
+            <div
+              class="p-3 bg-purple-500/20 rounded-lg text-purple-400 border border-purple-500/20"
+            >
+              <Icon name="mdi:school" class="w-8 h-8" />
+            </div>
+            <span
+              class="text-xs font-mono text-slate-500 border border-slate-700 px-2 py-1 rounded bg-slate-900/50"
+              >2019 - 2022</span
+            >
+          </div>
+          <h3 class="text-xl font-bold text-white mb-1">
+            Ingeniería en Computación
+          </h3>
+          <p class="text-slate-400 text-sm">UAM Cuajimalpa</p>
+        </div>
+
+        <div class="relative z-20 mt-6 pt-6 border-t border-white/5">
+          <p class="text-xs text-slate-500 italic">
+            "Fundamentos sólidos en algoritmos."
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="spotlight-card md:col-span-1 p-8 rounded-2xl border border-white/[0.05] bg-white/[0.02] backdrop-blur-xl group relative overflow-hidden shadow-xl shadow-black/50 flex flex-col justify-center items-center text-center reveal-item opacity-0 translate-y-8 transition-all duration-700 delay-300"
+      >
+        <div
+          class="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
+          style="background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(234, 179, 8, 0.1), transparent 40%);"
+        >
+        </div>
+
+        <div class="relative z-20">
+          <h3 class="text-lg font-bold text-slate-200 mb-6">Stack Favorito</h3>
+          <div class="flex flex-wrap justify-center gap-6">
+            <div class="flex flex-col items-center gap-2 group/icon">
+              <Icon
+                name="mdi:language-java"
+                class="w-10 h-10 text-slate-600 group-hover/icon:text-orange-500 transition-colors duration-300"
+              />
+              <span
+                class="text-[10px] text-slate-500 font-mono uppercase tracking-wider"
+                >Java</span
+              >
+            </div>
+
+            <div class="flex flex-col items-center gap-2 group/icon">
+              <Icon
+                name="mdi:react"
+                class="w-10 h-10 text-slate-600 group-hover/icon:text-cyan-400 transition-colors duration-300"
+              />
+              <span
+                class="text-[10px] text-slate-500 font-mono uppercase tracking-wider"
+                >React</span
+              >
+            </div>
+
+            <div class="flex flex-col items-center gap-2 group/icon">
+              <Icon
+                name="simple-icons:nestjs"
+                class="w-10 h-10 text-slate-600 group-hover/icon:text-red-600 transition-colors duration-300"
+              />
+              <span
+                class="text-[10px] text-slate-500 font-mono uppercase tracking-wider"
+                >NestJS</span
+              >
+            </div>
+
+            <div class="flex flex-col items-center gap-2 group/icon">
+              <Icon
+                name="simple-icons:nextdotjs"
+                class="w-10 h-10 text-slate-600 group-hover/icon:text-white transition-colors duration-300"
+              />
+              <span
+                class="text-[10px] text-slate-500 font-mono uppercase tracking-wider"
+                >Next.js</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="spotlight-card md:col-span-2 p-8 rounded-2xl border border-white/[0.05] bg-white/[0.02] backdrop-blur-xl group relative overflow-hidden shadow-xl shadow-black/50 flex items-center gap-8 reveal-item opacity-0 translate-y-8 transition-all duration-700 delay-400"
+      >
+        <div
+          class="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
+          style="background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(34, 197, 94, 0.1), transparent 40%);"
+        >
+        </div>
+
+        <div
+          class="absolute -right-10 -bottom-10 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-colors duration-500"
+        >
+        </div>
+
+        <div class="relative z-20 w-full">
+          <h3 class="text-xl font-bold text-white mb-4">
+            Filosofía de Trabajo
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="flex items-center gap-3">
+              <Icon
+                name="mdi:check-circle-outline"
+                class="w-5 h-5 text-green-500"
+              />
+              <span class="text-slate-300 text-sm">Arquitectura limpia</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <Icon name="mdi:account-group" class="w-5 h-5 text-blue-500" />
+              <span class="text-slate-300 text-sm">Trabajo colaborativo</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <Icon name="mdi:lightning-bolt" class="w-5 h-5 text-yellow-500" />
+              <span class="text-slate-300 text-sm">Performance First</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <Icon
+                name="mdi:book-open-page-variant"
+                class="w-5 h-5 text-purple-500"
+              />
+              <span class="text-slate-300 text-sm">Aprendizaje continuo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  /* Script para el efecto Spotlight en las tarjetas de About */
+  const cards = document.querySelectorAll(".spotlight-card");
+
+  cards.forEach((card) => {
+    const htmlCard = card as HTMLElement;
+    htmlCard.addEventListener("mousemove", (e) => {
+      const rect = htmlCard.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      htmlCard.style.setProperty("--mouse-x", `${x}px`);
+      htmlCard.style.setProperty("--mouse-y", `${y}px`);
+    });
+  });
+
+  /* Script para la animación de entrada (Scroll Reveal) */
+  const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.remove("opacity-0", "translate-y-8");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document
+    .querySelectorAll(".reveal-item")
+    .forEach((el) => observer.observe(el));
+</script>

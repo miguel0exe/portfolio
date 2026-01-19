@@ -1,0 +1,166 @@
+---
+import { Icon } from "astro-icon/components";
+
+const projects = [
+  {
+    title: "Sistema de Citas Médicas",
+    description:
+      "Plataforma SaaS para gestión de pacientes y agendas de nutriólogos. Incluye sistema de notificaciones y pagos.",
+    tags: ["Next.js 16", "PostgreSQL", "Docker", "Tailwind"],
+    link: "#",
+    github: "#",
+    // He hecho los gradientes de fondo un poco más vibrantes para que se noten tras el cristal
+    image: "bg-gradient-to-br from-blue-600/30 via-transparent to-slate-900/0",
+    span: "md:col-span-2",
+  },
+  {
+    title: "Cloud Storage API",
+    description:
+      "Servicio backend híbrido para gestión de archivos. Carga local en desarrollo y Cloudinary en producción.",
+    tags: ["NestJS", "TypeScript", "Cloudinary", "API REST"],
+    link: "#",
+    github: "#",
+    image:
+      "bg-gradient-to-br from-emerald-600/30 via-transparent to-slate-900/0",
+    span: "md:col-span-1",
+  },
+  {
+    title: "Enterprise Dashboard",
+    description:
+      "Panel administrativo modular con autenticación robusta y roles de usuario. Arquitectura de Microfronts.",
+    tags: ["React", "Redux", "Java Spring", "Microservices"],
+    link: "#",
+    github: "#",
+    image:
+      "bg-gradient-to-br from-orange-600/30 via-transparent to-slate-900/0",
+    span: "md:col-span-1",
+  },
+  {
+    title: "Portafolio Personal V2",
+    description:
+      "Este sitio web. Optimizado para SEO y performance perfecto (100/100 Lighthouse).",
+    tags: ["Astro", "Tailwind", "Framer Motion"],
+    link: "#",
+    github: "#",
+    image:
+      "bg-gradient-to-br from-purple-600/30 via-transparent to-slate-900/0",
+    span: "md:col-span-2",
+  },
+];
+---
+
+<section
+  id="proyectos"
+  class="py-20 bg-slate-950 text-white relative overflow-hidden"
+>
+  <div
+    class="absolute top-[20%] left-[10%] w-96 h-96 bg-blue-900/30 rounded-full blur-3xl -z-10 animate-pulse-slow"
+  >
+  </div>
+  <div
+    class="absolute bottom-[20%] right-[10%] w-96 h-96 bg-purple-900/20 rounded-full blur-3xl -z-10 animate-pulse-slow"
+    style="animation-delay: 2s;"
+  >
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <h2 class="text-3xl md:text-4xl font-bold mb-12 flex items-center gap-3">
+      <span class="text-blue-500">#</span> Proyectos Destacados
+    </h2>
+
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(300px,auto)]"
+    >
+      {
+        projects.map((project) => (
+          /* AQUÍ ESTÁ LA MAGIA DEL CRISTAL:
+           - backdrop-blur-xl: Desenfoca potentemente lo que hay detrás.
+           - bg-white/[0.02]: Un fondo blanco casi invisible para dar tinte.
+           - border-white/[0.05]: Un borde blanco muy sutil.
+           - shadow-xl: Sombra profunda para separarlo del fondo.
+           - hover:border-blue-500/30: Al pasar el mouse, el borde del cristal se ilumina en azul.
+        */
+          <article
+            class={`spotlight-card group relative rounded-2xl overflow-hidden transition-all duration-300 ${project.span}
+                        backdrop-blur-xl bg-white/[0.02] border border-white/[0.05] shadow-xl shadow-black/50
+                        hover:border-blue-500/30 hover:shadow-blue-500/10 hover:-translate-y-1`}
+          >
+            <div
+              class="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
+              style="background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(59, 130, 246, 0.1), transparent 40%);"
+            />
+
+            <div class={`absolute inset-0 opacity-40 ${project.image}`} />
+
+            <div class="relative h-full flex flex-col justify-end p-8 z-20">
+              <div class="translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <div class="flex gap-2 mb-3">
+                  {project.tags.map((tag) => (
+                    <span class="text-xs font-mono px-2 py-1 rounded-full bg-slate-900/50 text-blue-200 border border-white/10 backdrop-blur-md">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <h3 class="text-2xl font-bold mb-2 text-white group-hover:text-blue-400 transition-colors drop-shadow-sm">
+                  {project.title}
+                </h3>
+
+                <p class="text-slate-300 text-sm mb-6 max-w-lg font-medium">
+                  {project.description}
+                </p>
+
+                <div class="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
+                  <a
+                    href={project.github}
+                    class="flex items-center gap-2 text-sm font-bold text-white hover:text-blue-400 transition-colors bg-white/10 px-4 py-2 rounded-lg border border-white/10 hover:bg-white/20 backdrop-blur-md"
+                  >
+                    <Icon name="mdi:github" class="w-5 h-5" /> Código
+                  </a>
+                  <a
+                    href={project.link}
+                    class="flex items-center gap-2 text-sm font-bold text-white hover:text-blue-400 transition-colors bg-blue-600/20 px-4 py-2 rounded-lg border border-blue-500/30 hover:bg-blue-600/40 backdrop-blur-md"
+                  >
+                    <Icon name="mdi:open-in-new" class="w-5 h-5" /> Demo
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  // El mismo script del spotlight de antes
+  const cards = document.querySelectorAll(".spotlight-card");
+  cards.forEach((card) => {
+    const htmlCard = card as HTMLElement;
+    htmlCard.addEventListener("mousemove", (e) => {
+      const rect = htmlCard.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      htmlCard.style.setProperty("--mouse-x", `${x}px`);
+      htmlCard.style.setProperty("--mouse-y", `${y}px`);
+    });
+  });
+</script>
+
+<style>
+  @keyframes pulse-slow {
+    0%,
+    100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+  }
+  .animate-pulse-slow {
+    animation: pulse-slow 8s infinite ease-in-out;
+  }
+</style>

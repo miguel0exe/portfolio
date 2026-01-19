@@ -1,0 +1,115 @@
+---
+import { Icon } from "astro-icon/components";
+
+const jobs = [
+  {
+    company: "PKU",
+    role: "Desarrollador Java y ReactJs",
+    period: "Ene 2025 – Actualidad",
+    location: "Álvaro Obregón, CDMX",
+    description:
+      "Desarrollo de sitios web para clientes utilizando tecnologías modernas y arquitecturas de microfronts. Apoyo en administración de servidores y despliegue a producción.",
+    skills: ["Java", "React", "Microfronts", "Redux", "Server Admin"],
+  },
+  {
+    company: "Stefanini",
+    role: "Desarrollador ReactJS SSR",
+    period: "Feb 2024 – Oct 2024",
+    location: "Remoto",
+    description:
+      "Colaboración en despliegues y automatización de procesos (CI/CD) para reducir tiempos de entrega. Integración de APIs REST y documentación técnica en Confluence.",
+    skills: ["React SSR", "CI/CD", "REST APIs", "Confluence"],
+  },
+  {
+    company: "Phinder",
+    role: "Desarrollador React Js / Java",
+    period: "Ago 2023 – Feb 2024",
+    location: "Peri Sur, CDMX",
+    description:
+      "Implementación de endpoints en Java y desarrollo frontend a la medida para clientes. Integración completa de lógica de negocio back-end con interfaces React.",
+    skills: ["Java", "Spring Boot", "React", "Redux", "Endpoints"],
+  },
+  {
+    company: "CleveClick",
+    role: "Desarrollador Java Jr",
+    period: "Sept 2021 – Ago 2023",
+    location: "Remoto",
+    description:
+      "Desarrollo de servicios REST y revisión exhaustiva del funcionamiento de sistemas legacy y nuevos módulos.",
+    skills: ["Java", "REST Services", "System Analysis"],
+  },
+];
+---
+
+<section id="experiencia" class="py-20 bg-slate-950 text-white relative">
+  <div class="max-w-4xl mx-auto px-6">
+    <h2 class="text-3xl md:text-4xl font-bold mb-16 flex items-center gap-3">
+      <span class="text-blue-500">#</span> Experiencia Laboral
+    </h2>
+
+    <div class="relative border-l border-slate-800 ml-3 md:ml-6 space-y-12">
+      {
+        jobs.map((job) => (
+          /* Agregamos la clase 'reveal-item' para seleccionarlos con JS */
+          /* opacity-0 y translate-y-8 son el estado INICIAL (invisible y un poco abajo) */
+          <div class="reveal-item relative pl-8 md:pl-12 group opacity-0 translate-y-8 transition-all duration-700 ease-out">
+            <span class="absolute -left-[5px] top-2 h-3 w-3 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.6)] ring-4 ring-slate-950 transition-transform group-hover:scale-125" />
+
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+              <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                {job.role}{" "}
+                <span class="text-slate-500 font-normal text-lg">
+                  @ {job.company}
+                </span>
+              </h3>
+              <span class="text-sm text-slate-400 font-mono mt-1 sm:mt-0 bg-slate-900 px-2 py-1 rounded border border-slate-800">
+                {job.period}
+              </span>
+            </div>
+
+            <div class="text-sm text-slate-500 mb-4 flex items-center gap-1">
+              <Icon name="mdi:map-marker" class="w-4 h-4" />
+              {job.location}
+            </div>
+
+            <p class="text-slate-300 mb-4 leading-relaxed max-w-2xl">
+              {job.description}
+            </p>
+
+            <div class="flex flex-wrap gap-2">
+              {job.skills.map((skill) => (
+                <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-blue-900/30 text-blue-300 border border-blue-500/20">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  // Este script detecta cuando las tarjetas entran en pantalla
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1, // Se activa cuando el 10% del elemento es visible
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Cuando es visible, quitamos la invisibilidad y el desplazamiento
+        entry.target.classList.remove("opacity-0", "translate-y-8");
+        // Dejamos de observar para que no se anime de nuevo al subir
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll(".reveal-item").forEach((el) => {
+    observer.observe(el);
+  });
+</script>
