@@ -9,7 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@fontsource/cinzel": "^5.2.8",
+    "@fontsource/crimson-text": "^5.2.7",
     "@tailwindcss/vite": "^4.1.18",
+    "@vercel/analytics": "^1.6.1",
     "astro": "^5.16.6",
     "astro-icon": "^1.1.5",
     "tailwindcss": "^4.1.18"
