@@ -5,7 +5,7 @@ const navItems = [
   {
     title: "Inicio",
     label: "inicio",
-    url: "/#",
+    url: "/#", // Truco: Apunta a top
     icon: "mdi:home-outline",
   },
   {
@@ -25,6 +25,12 @@ const navItems = [
     label: "sobre-mi",
     url: "/#sobre-mi",
     icon: "mdi:account-box-outline",
+  },
+  {
+    title: "Grimorio",
+    label: "grimorio",
+    url: "/grimorio",
+    icon: "mdi:creation",
   },
   {
     title: "Invocar",
@@ -59,7 +65,6 @@ const navItems = [
           <span class="font-cinzel text-sm font-bold text-[#78716c] tracking-widest group-hover:text-[#C8AA6E] transition-colors duration-300">
             {link.title}
           </span>
-
           <span class="absolute -bottom-2 w-1 h-1 bg-[#C8AA6E] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_8px_#C8AA6E]" />
         </a>
       ))
@@ -77,7 +82,6 @@ const navItems = [
       class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C8AA6E]/50 to-transparent"
     >
     </div>
-
     {
       navItems.map((link) => (
         <a
@@ -89,7 +93,6 @@ const navItems = [
             name={link.icon}
             class="w-6 h-6 text-[#a8a29e] group-hover:text-[#C8AA6E] transition-colors"
           />
-
           <span class="absolute -top-10 left-1/2 -translate-x-1/2 bg-[#0c0a09] border border-[#C8AA6E] text-[#C8AA6E] text-[10px] uppercase tracking-widest px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
             {link.title}
           </span>
@@ -100,81 +103,98 @@ const navItems = [
 </nav>
 
 <script>
-  /* LÓGICA DE ILUMINACIÓN DE RUNAS (Intersection Observer) */
-  const sections = document.querySelectorAll("section, footer"); // Observamos secciones y footer
+  /* LÓGICA HÍBRIDA: RUTA ACTUAL + SCROLL SPY */
+  const sections = document.querySelectorAll("section, footer");
   const navLinksDesktop = document.querySelectorAll(".nav-link");
   const navLinksMobile = document.querySelectorAll(".nav-link-mobile");
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Limpiar clases activas
-          navLinksDesktop.forEach((link) => {
-            link
-              .querySelector("span")
-              ?.classList.remove("text-[#C8AA6E]", "text-shadow-glow");
-            link.querySelector("span")?.classList.add("text-[#78716c]");
-            link
-              .querySelector("span:last-child")
-              ?.classList.remove("opacity-100"); // El punto
-          });
+  // Función para activar un link visualmente
+  function activateLink(label) {
+    // 1. Limpiar todo primero
+    navLinksDesktop.forEach((link) => {
+      link
+        .querySelector("span")
+        ?.classList.remove("text-[#C8AA6E]", "text-shadow-glow");
+      link.querySelector("span")?.classList.add("text-[#78716c]");
+      link.querySelector("span:last-child")?.classList.remove("opacity-100");
+    });
+    navLinksMobile.forEach((link) => {
+      link.classList.remove("bg-[#C8AA6E]/10", "border-[#C8AA6E]/30");
+      link.querySelector("svg")?.classList.remove("text-[#C8AA6E]");
+    });
 
-          navLinksMobile.forEach((link) => {
-            link.classList.remove("bg-[#C8AA6E]/10", "border-[#C8AA6E]/30");
-            link.querySelector("svg")?.classList.remove("text-[#C8AA6E]");
-          });
+    // 2. Activar el correcto (Desktop)
+    const activeDesktop = document.querySelector(
+      `.nav-link[aria-label="${label}"]`,
+    );
+    if (activeDesktop) {
+      activeDesktop.querySelector("span")?.classList.remove("text-[#78716c]");
+      activeDesktop
+        .querySelector("span")
+        ?.classList.add("text-[#C8AA6E]", "text-shadow-glow");
+      activeDesktop
+        .querySelector("span:last-child")
+        ?.classList.add("opacity-100");
+    }
 
-          // Activar la runa correcta
-          const id = entry.target.id || "footer"; // Si es el footer, usameos 'footer'
-          // Mapeo manual porque los IDs de sección son español y los links usan #hash
-          let targetLabel = "";
-          if (id === "experiencia") targetLabel = "experiencia";
-          if (id === "proyectos") targetLabel = "proyectos";
-          if (id === "sobre-mi") targetLabel = "sobre-mi";
-          if (entry.target.tagName === "FOOTER") targetLabel = "footer";
+    // 3. Activar el correcto (Mobile)
+    const activeMobile = document.querySelector(
+      `.nav-link-mobile[aria-label="${label}"]`,
+    );
+    if (activeMobile) {
+      activeMobile.classList.add("bg-[#C8AA6E]/10", "border-[#C8AA6E]/30");
+      activeMobile.querySelector("svg")?.classList.add("text-[#C8AA6E]");
+    }
+  }
 
-          // Activar Desktop
-          const activeDesktop = document.querySelector(
-            `.nav-link[aria-label="${targetLabel}"]`,
-          );
-          if (activeDesktop) {
-            activeDesktop
-              .querySelector("span")
-              ?.classList.remove("text-[#78716c]");
-            activeDesktop
-              .querySelector("span")
-              ?.classList.add("text-[#C8AA6E]", "text-shadow-glow");
-            activeDesktop
-              .querySelector("span:last-child")
-              ?.classList.add("opacity-100");
+  // --- ESCENARIO 1: RUTAS ESTÁTICAS (GRIMORIO) ---
+  const currentPath = window.location.pathname;
+
+  if (currentPath.includes("/grimorio")) {
+    activateLink("grimorio");
+  }
+  // --- ESCENARIO 2: HOMEPAGE CON SCROLL ---
+  else {
+    // Si estamos en home, iniciamos el observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            let label = "";
+            const id = entry.target.id;
+
+            // Mapeo de ID de sección -> Label del Nav
+            if (id === "experiencia") label = "experiencia";
+            if (id === "proyectos") label = "proyectos";
+            if (id === "sobre-mi") label = "sobre-mi";
+            if (entry.target.tagName === "FOOTER") label = "footer";
+
+            // Caso especial: El Hero (Inicio) no tiene ID a veces, o es la primera sección
+            // Asumimos que si no es ninguna de las anteriores y es una section visible arriba, es inicio
+            if (!label && id === "") label = "inicio";
+            if (label) activateLink(label);
           }
+        });
+      },
+      {
+        threshold: 0.3, // Un poco más sensible (30%)
+        rootMargin: "-10% 0px -50% 0px",
+      },
+    );
 
-          // Activar Mobile
-          const activeMobile = document.querySelector(
-            `.nav-link-mobile[aria-label="${targetLabel}"]`,
-          );
-          if (activeMobile) {
-            activeMobile.classList.add(
-              "bg-[#C8AA6E]/10",
-              "border-[#C8AA6E]/30",
-            );
-            activeMobile.querySelector("svg")?.classList.add("text-[#C8AA6E]");
-          }
-        }
-      });
-    },
-    {
-      threshold: 0.2, // Se activa al 20% de visibilidad
-      rootMargin: "-10% 0px -50% 0px", // Ajuste para que el centro de la pantalla sea el trigger
-    },
-  );
+    // Solo observamos secciones si estamos en la home
+    sections.forEach((s) => observer.observe(s));
 
-  sections.forEach((s) => observer.observe(s));
+    // Check inicial: Si estamos arriba del todo (window.scrollY === 0), activar Inicio
+    window.addEventListener("scroll", () => {
+      if (window.scrollY < 100) activateLink("inicio");
+    });
+    // Activar inicio al cargar si estamos arriba
+    if (window.scrollY < 100) activateLink("inicio");
+  }
 </script>
 
 <style>
-  /* Efecto de brillo de texto para runas activas */
   .text-shadow-glow {
     text-shadow: 0 0 10px rgba(200, 170, 110, 0.6);
   }

@@ -1,0 +1,68 @@
+---
+import { Icon } from "astro-icon/components";
+import GrimoireConsole from "../components/rpg/GrimoireConsole.jsx";
+import Layout from "../layouts/Layout.astro";
+
+// 1. ASTRO LEE LOS ARCHIVOS .MD AQUÍ (Server Side)
+// Astro.glob devuelve un array con todos los archivos encontrados
+const spellsData = await Astro.glob("../content/grimorio/*.md");
+console.log(spellsData);
+
+// 2. Procesamos los datos para enviarlos limpios a React
+const spells = spellsData.map((file) => ({
+  frontmatter: file.frontmatter, // Título, tags, desc...
+  rawContent: file.rawContent(), // El texto crudo del markdown para que React lo parsee
+}));
+---
+
+<Layout title="El Grimorio - Biblioteca de Código">
+  <div class="pt-24 pb-32 px-4 md:px-6 min-h-screen relative">
+    <div
+      class="max-w-7xl mx-auto mb-8 flex items-center gap-4 border-b border-[#C8AA6E]/30 pb-6"
+    >
+      <div class="p-3 bg-[#C8AA6E]/10 rounded border border-[#C8AA6E]/50">
+        <Icon
+          name="mdi:book-open-page-variant"
+          class="w-8 h-8 text-[#C8AA6E]"
+        />
+      </div>
+      <div>
+        <h1 class="text-3xl md:text-4xl font-cinzel text-[#e7e5e4]">
+          Biblioteca de Hechizos
+        </h1>
+        <p class="text-sm text-[#a8a29e] font-serif italic">
+          {spells.length} pergaminos antiguos recuperados.
+        </p>
+      </div>
+    </div>
+
+    <GrimoireConsole client:load spells={spells} />
+
+    <div class="text-center mt-8">
+      <a
+        href="/"
+        class="text-xs text-[#57534e] hover:text-[#C8AA6E] transition-colors"
+      >
+        ← Volver al mapa principal
+      </a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  code,
+  pre,
+  kbd,
+  samp,
+  .react-syntax-highlighter-line-number {
+    font-family: "JetBrains Mono", monospace !important;
+  }
+
+  /* Aseguramos que los números de línea también la usen */
+  span {
+    /* A veces los spans internos heredan mal, esto fuerza la cascada en bloques de código */
+    font-feature-settings:
+      "liga" on,
+      "calt" on; /* Activa ligaduras bonitas (flechas =>) */
+  }
+</style>
