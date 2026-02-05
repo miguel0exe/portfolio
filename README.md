@@ -61,3 +61,6 @@ src/
 ├── layouts/         # Layout principal (SEO, Fuentes, Estilos globales)
 ├── pages/           # Rutas y páginas (Astro file-based routing)
 └── styles/          # Estilos globales adicionales
+
+
+![Tests](https://github.com/miguel0exe/portfolio/actions/workflows/ci.yml/badge.svg)
