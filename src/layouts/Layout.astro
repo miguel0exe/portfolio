@@ -1,56 +1,312 @@
+---
+import Navbar from "../components/Navbar.astro";
+import Analytics from "@vercel/analytics/astro";
+// Fuentes
+import "@fontsource/cinzel";
+import "@fontsource/crimson-text";
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://tudominio.com/" />
-		<meta property="og:title" content="Miguel Ángel - Ingeniero Full Stack" />
+		<meta property="og:image" content="/og-image.jpg" />
+		<title>{title}</title>
 		<meta
-			property="og:description"
-			content="Desarrollador Java & React. Especialista en arquitecturas robustas y experiencias web modernas."
+			name="description"
+			content={description ||
+				"Portafolio de Miguel Ángel - Artífice de Software"}
 		/>
-		<meta property="og:image" content="/og-image.png" />
 
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta
-			property="twitter:title"
-			content="Miguel Ángel - Ingeniero Full Stack"
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"
+			rel="stylesheet"
 		/>
-		<meta
-			property="twitter:description"
-			content="Desarrollador Java & React. Especialista en arquitecturas robustas y experiencias web modernas."
-		/>
-		<meta property="twitter:image" content="/og-image.png" />
-		<title>Mi portafolio</title>
 	</head>
-	<body>
+
+	<body
+		class="bg-[#0c0a09] text-[#d6d3d1] relative min-h-screen selection:bg-[#C8AA6E] selection:text-black overflow-x-hidden"
+	>
+		<div class="fixed inset-0 z-[-3] bg-[#0c0a09]"></div>
+
+		<div
+			class="fixed inset-0 z-[-2] opacity-30 mix-blend-overlay pointer-events-none animate-fog"
+			style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"
+		>
+		</div>
+
+		<div
+			id="torch"
+			class="fixed inset-0 z-[-1] pointer-events-none opacity-0 transition-opacity duration-500"
+		>
+		</div>
+
+		<Navbar />
 		<slot />
+
+		<Analytics />
+
+		<div
+			id="magic-cursor"
+			class="fixed top-0 left-0 w-8 h-8 border border-[#C8AA6E] rounded-full pointer-events-none z-50 -translate-x-1/2 -translate-y-1/2 transition-transform duration-75 mix-blend-difference hidden md:block"
+		>
+			<div
+				class="absolute inset-0 bg-[#C8AA6E]/20 rounded-full animate-ping-slow"
+			>
+			</div>
+		</div>
 	</body>
 </html>
 
+<script>
+	/* =========================================
+     1. SISTEMA DE ILUMINACIÓN (ANTORCHA)
+     ========================================= */
+	const torch = document.getElementById("torch");
+
+	document.addEventListener("mousemove", (e) => {
+		if (!torch) return;
+		torch.style.opacity = "1";
+		const x = e.clientX;
+		const y = e.clientY;
+		// Gradiente radial dorado/cálido alrededor del cursor
+		torch.style.background = `radial-gradient(circle 600px at ${x}px ${y}px, rgba(200, 170, 110, 0.08), transparent 40%)`;
+	});
+
+	/* =========================================
+     2. CURSOR PERSONALIZADO (ANILLO)
+     ========================================= */
+	const cursor = document.getElementById("magic-cursor");
+
+	document.addEventListener("mousemove", (e) => {
+		if (!cursor) return;
+		cursor.style.transform = `translate(${e.clientX - 16}px, ${e.clientY - 16}px)`;
+	});
+
+	document.addEventListener("mousedown", () => {
+		if (!cursor) return;
+		cursor.style.transform += " scale(0.8)";
+		cursor.style.borderColor = "#fff";
+	});
+
+	document.addEventListener("mouseup", () => {
+		if (!cursor) return;
+		cursor.style.transform = cursor.style.transform.replace(" scale(0.8)", "");
+		cursor.style.borderColor = "#C8AA6E";
+	});
+
+	/* =========================================
+     3. EASTER EGG (KONAMI CODE)
+     ========================================= */
+	const konamiCode = [
+		"ArrowUp",
+		"ArrowUp",
+		"ArrowDown",
+		"ArrowDown",
+		"ArrowLeft",
+		"ArrowRight",
+		"ArrowLeft",
+		"ArrowRight",
+		"b",
+		"a",
+	];
+	let cursorCont = 0;
+
+	document.addEventListener("keydown", (e) => {
+		if (e.key === konamiCode[cursorCont]) {
+			cursorCont++;
+			if (cursorCont === konamiCode.length) {
+				activateGodMode();
+				cursorCont = 0;
+			}
+		} else {
+			cursorCont = 0;
+		}
+	});
+
+	function activateGodMode() {
+		alert("⚔️ GOD MODE ACTIVATED: Infinite Mana Granted! ⚔️");
+		const style = document.createElement("style");
+		style.innerHTML = `
+      * { animation: rainbow-border 3s infinite; }
+      @keyframes rainbow-border {
+        0% { border-color: red; } 16% { border-color: orange; }
+        33% { border-color: yellow; } 50% { border-color: green; }
+        66% { border-color: blue; } 83% { border-color: indigo; }
+        100% { border-color: violet; }
+      }
+    `;
+		document.head.appendChild(style);
+		console.log("Achievement Unlocked: The Konami Code");
+	}
+</script>
+
 <style is:global>
 	@import "tailwindcss";
-	html {
-		scroll-behavior: smooth; /* <--- La magia ocurre aquí */
-		font-family: system-ui, sans-serif;
-		background: #020617; /* Slate 950 para que coincida con el tema */
+
+	/* =========================================
+     VARIABLES & RESET
+     ========================================= */
+	:root {
+		--rpg-gold: #c8aa6e;
+		--rpg-dark: #0c0a09;
 	}
 
-	/* Opcional: Personalizar la barra de scroll para que combine */
+	html,
+	body {
+		overflow-x: hidden; /* Evita scroll horizontal indeseado */
+		width: 100%;
+	}
+
+	/* =========================================
+     TIPOGRAFÍA
+     ========================================= */
+	/* Títulos e Interfaz */
+	h1,
+	h2,
+	h3,
+	h4,
+	a.nav-link {
+		font-family: "Cinzel", serif;
+	}
+
+	/* Texto de lectura */
+	p,
+	span,
+	div,
+	li {
+		font-family: "Crimson Text", serif;
+	}
+
+	/* CÓDIGO (Forzamos JetBrains Mono sobre todo lo demás) */
+	pre,
+	pre *,
+	code,
+	code *,
+	.react-syntax-highlighter-line-number {
+		font-family: "JetBrains Mono", monospace !important;
+	}
+
+	/* =========================================
+     UI & SCROLLBAR
+     ========================================= */
+	/* Scrollbar estilo Metal */
 	::-webkit-scrollbar {
 		width: 10px;
 	}
 	::-webkit-scrollbar-track {
-		background: #0f172a;
+		background: #1c1917;
 	}
 	::-webkit-scrollbar-thumb {
-		background: #334155;
-		border-radius: 5px;
+		background: #44403c;
+		border: 1px solid #c8aa6e;
+		border-radius: 2px;
 	}
 	::-webkit-scrollbar-thumb:hover {
-		background: #475569;
+		background: #57534e;
+	}
+
+	/* Utilidad para ocultar scrollbar pero permitir scroll */
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+	.no-scrollbar {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	/* =========================================
+     CURSORES PERSONALIZADOS (Desktop)
+     ========================================= */
+	body {
+		/* Daga de Hierro (Default) */
+		cursor:
+			url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23a8a29e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="m13 19 6-6"/><path d="M16 16 20 20"/><path d="M19 21 22 22 21 19"/></svg>')
+				0 0,
+			auto;
+	}
+
+	a,
+	button,
+	.nav-link,
+	.spotlight-card {
+		/* Guantelete Dorado (Hover) */
+		cursor:
+			url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23C8AA6E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>')
+				4 4,
+			pointer;
+	}
+
+	/* =========================================
+     ANIMACIONES
+     ========================================= */
+	@keyframes fog-flow {
+		0% {
+			transform: translateY(0) scale(1);
+		}
+		50% {
+			transform: translateY(-20px) scale(1.05);
+		}
+		100% {
+			transform: translateY(0) scale(1);
+		}
+	}
+	.animate-fog {
+		animation: fog-flow 20s infinite ease-in-out;
+	}
+
+	@keyframes ping-slow {
+		0% {
+			transform: scale(0.8);
+			opacity: 0.8;
+		}
+		100% {
+			transform: scale(1.5);
+			opacity: 0;
+		}
+	}
+	.animate-ping-slow {
+		animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+	}
+
+	/* =========================================
+     MÓVIL (Override de Efectos)
+     ========================================= */
+	@media (hover: none) and (pointer: coarse) {
+		/* Desactivar cursor mágico */
+		#magic-cursor {
+			display: none !important;
+		}
+
+		/* Restaurar cursor nativo */
+		body,
+		a,
+		button,
+		.nav-link,
+		.spotlight-card {
+			cursor: auto !important;
+		}
+
+		/* Antorcha estática y tenue */
+		#torch {
+			opacity: 0.15 !important;
+			background: radial-gradient(
+				circle 300px at 50% 50%,
+				rgba(200, 170, 110, 0.15),
+				transparent 60%
+			) !important;
+		}
 	}
 </style>

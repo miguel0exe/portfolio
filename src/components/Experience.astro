@@ -39,49 +39,84 @@ const jobs = [
     skills: ["Java", "REST Services", "System Analysis"],
   },
 ];
+
+const quests = [
+  {
+    guild: "PKU",
+    role: "Java & React Artificer",
+    date: "2025 - Present",
+    desc: "Despliegue de arquitecturas Microfronts y administración de servidores del reino.",
+    loot: ["Java", "React", "Microfronts"],
+  },
+  {
+    guild: "Stefanini",
+    role: "ReactJS SSR Developer",
+    date: "2024 - 2024",
+    desc: "Automatización de procesos CI/CD y documentación técnica en Confluence.",
+    loot: ["React SSR", "CI/CD", "Confluence"],
+  },
+  {
+    guild: "Phinder",
+    role: "Full Stack Developer",
+    date: "2023 - 2024",
+    desc: "Integración completa de lógica back-end con interfaces React personalizadas.",
+    loot: ["Java", "Spring Boot", "React"],
+  },
+  {
+    guild: "CleveClick",
+    role: "Java Junior Developer",
+    date: "2021 - 2023",
+    desc: "Desarrollo de servicios REST y análisis de sistemas legacy.",
+    loot: ["Java", "REST Services", "System Analysis"],
+  },
+];
 ---
 
-<section id="experiencia" class="py-20 bg-slate-950 text-white relative">
+<section id="experiencia" class="py-24 relative">
   <div class="max-w-4xl mx-auto px-6">
-    <h2 class="text-3xl md:text-4xl font-bold mb-16 flex items-center gap-3">
-      <span class="text-blue-500">#</span> Experiencia Laboral
+    <h2 class="text-4xl text-center mb-16 text-[#C8AA6E] drop-shadow-md">
+      <span class="text-2xl block text-[#a8a29e] mb-2 font-serif italic"
+        >Historial de Batallas</span
+      >
+      BITÁCORA DE MISIONES
     </h2>
+    <span class="text-[#C8AA6E]">Botín Obtenido:</span>
 
-    <div class="relative border-l border-slate-800 ml-3 md:ml-6 space-y-12">
+    <div class="space-y-8">
       {
-        jobs.map((job) => (
-          /* Agregamos la clase 'reveal-item' para seleccionarlos con JS */
-          /* opacity-0 y translate-y-8 son el estado INICIAL (invisible y un poco abajo) */
-          <div class="reveal-item relative pl-8 md:pl-12 group opacity-0 translate-y-8 transition-all duration-700 ease-out">
-            <span class="absolute -left-[5px] top-2 h-3 w-3 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.6)] ring-4 ring-slate-950 transition-transform group-hover:scale-125" />
+        quests.map((quest) => (
+          <div class="relative group">
+            <div class="absolute inset-0 border border-[#C8AA6E]/20 bg-[#1c1917]/40 clip-path-polygon hover:border-[#C8AA6E]/60 transition-colors duration-300" />
 
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-              <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
-                {job.role}{" "}
-                <span class="text-slate-500 font-normal text-lg">
-                  @ {job.company}
-                </span>
-              </h3>
-              <span class="text-sm text-slate-400 font-mono mt-1 sm:mt-0 bg-slate-900 px-2 py-1 rounded border border-slate-800">
-                {job.period}
-              </span>
-            </div>
+            <div class="relative p-6 flex flex-col md:flex-row gap-6 items-start">
+              <div class="p-4 bg-[#0c0a09] border border-[#C8AA6E] shadow-[0_0_10px_rgba(200,170,110,0.3)]">
+                <Icon name="mdi:sword-cross" class="w-8 h-8 text-[#C8AA6E]" />
+              </div>
 
-            <div class="text-sm text-slate-500 mb-4 flex items-center gap-1">
-              <Icon name="mdi:map-marker" class="w-4 h-4" />
-              {job.location}
-            </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="text-xl font-bold text-[#e7e5e4]">{quest.role}</h3>
+                  <span class="text-xs font-mono text-[#C8AA6E] border border-[#C8AA6E]/30 px-2 py-1">
+                    {quest.date}
+                  </span>
+                </div>
+                <p class="text-[#a8a29e] text-sm font-bold uppercase tracking-wide mb-3">
+                  Guild: {quest.guild}
+                </p>
 
-            <p class="text-slate-300 mb-4 leading-relaxed max-w-2xl">
-              {job.description}
-            </p>
+                <p class="text-[#d6d3d1] italic mb-4 font-serif leading-relaxed">
+                  "{quest.desc}"
+                </p>
 
-            <div class="flex flex-wrap gap-2">
-              {job.skills.map((skill) => (
-                <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-blue-900/30 text-blue-300 border border-blue-500/20">
-                  {skill}
-                </span>
-              ))}
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="text-[#C8AA6E]">Loot Acquired:</span>
+                  {quest.loot.map((item) => (
+                    <span class="text-[#a8a29e] bg-[#292524] px-2 py-1 rounded-sm border border-[#44403c]">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         ))
